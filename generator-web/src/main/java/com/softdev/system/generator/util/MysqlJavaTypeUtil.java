@@ -1,15 +1,15 @@
 package com.softdev.system.generator.util;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * @author lvyanpu
  */
-public final class mysqlJavaTypeUtil {
-    public static final  HashMap<String, String> mysqlJavaTypeMap = new HashMap<String, String>();
-    public static final  HashMap<String, String> mysqlSwaggerTypeMap =new HashMap<String, String>();
+public final class MysqlJavaTypeUtil {
+    public static final  HashMap<String, String> mysqlJavaTypeMap = new HashMap<>();
+    public static final  HashMap<String, String> mysqlJdbcTypeMap = new HashMap<>();
+    public static final  HashMap<String, String> mysqlSwaggerTypeMap = new HashMap<>();
 
     static{
         mysqlJavaTypeMap.put("bigint","Long");
@@ -37,6 +37,15 @@ public final class mysqlJavaTypeUtil {
         mysqlJavaTypeMap.put("timestamp","Date");
 
 
+        mysqlJdbcTypeMap.put("Integer","INTEGER");
+        mysqlJdbcTypeMap.put("Float","FLOAT");
+        mysqlJdbcTypeMap.put("Long","BIGINT");
+        mysqlJdbcTypeMap.put("String","VARCHAR");
+        mysqlJdbcTypeMap.put("Boolean","BOOLEAN");
+        mysqlJdbcTypeMap.put("Double","DOUBLE");
+        mysqlJdbcTypeMap.put("Date","TIMESTAMP");
+
+
         mysqlSwaggerTypeMap.put("bigint","integer");
         mysqlSwaggerTypeMap.put("int","integer");
         mysqlSwaggerTypeMap.put("tinyint","integer");
@@ -52,6 +61,11 @@ public final class mysqlJavaTypeUtil {
     public static HashMap<String, String> getMysqlJavaTypeMap() {
         return mysqlJavaTypeMap;
     }
+
+    public static Map<String, String> getMysqlJdbcTypeMap() {
+        return mysqlJdbcTypeMap;
+    }
+
 
     public static HashMap<String, String> getMysqlSwaggerTypeMap() {
         return mysqlSwaggerTypeMap;

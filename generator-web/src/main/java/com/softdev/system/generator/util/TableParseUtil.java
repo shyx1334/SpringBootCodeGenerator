@@ -1,6 +1,5 @@
 package com.softdev.system.generator.util;
 
-import com.softdev.system.generator.util.mysqlJavaTypeUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -9,10 +8,8 @@ import com.softdev.system.generator.entity.FieldInfo;
 import com.softdev.system.generator.entity.ParamInfo;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
@@ -202,8 +199,8 @@ public class TableParseUtil {
                     }
                     //swagger class
                     String swaggerClass = "string" ;
-                    if(mysqlJavaTypeUtil.getMysqlSwaggerTypeMap().containsKey(mysqlType)){
-                        swaggerClass = mysqlJavaTypeUtil.getMysqlSwaggerTypeMap().get(mysqlType);
+                    if(MysqlJavaTypeUtil.getMysqlSwaggerTypeMap().containsKey(mysqlType)){
+                        swaggerClass = MysqlJavaTypeUtil.getMysqlSwaggerTypeMap().get(mysqlType);
                     }
                     // field class
                     // int(11) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
@@ -212,8 +209,8 @@ public class TableParseUtil {
                     //2018-11-22 lshz0088 处理字段类型的时候，不严谨columnLine.contains(" int") 类似这种的，可在前后适当加一些空格之类的加以区分，否则当我的字段包含这些字符的时候，产生类型判断问题。
                     //2020-05-03 MOSHOW.K.ZHENG 优化对所有类型的处理
                     //2020-10-20 zhengkai 新增包装类型的转换选择
-                    if(mysqlJavaTypeUtil.getMysqlJavaTypeMap().containsKey(mysqlType)){
-                        fieldClass = mysqlJavaTypeUtil.getMysqlJavaTypeMap().get(mysqlType);
+                    if(MysqlJavaTypeUtil.getMysqlJavaTypeMap().containsKey(mysqlType)){
+                        fieldClass = MysqlJavaTypeUtil.getMysqlJavaTypeMap().get(mysqlType);
                     }
                     // field comment，MySQL的一般位于field行，而pgsql和oralce多位于后面。
                     String fieldComment = null;
@@ -251,6 +248,7 @@ public class TableParseUtil {
                     FieldInfo fieldInfo = new FieldInfo();
                     //
                     fieldInfo.setColumnName(columnName);
+                    fieldInfo.setJdbcType(MysqlJavaTypeUtil.getMysqlJdbcTypeMap().getOrDefault(fieldClass,""));
                     fieldInfo.setFieldName(fieldName);
                     fieldInfo.setFieldClass(fieldClass);
                     fieldInfo.setSwaggerClass(swaggerClass);
@@ -434,6 +432,7 @@ public class TableParseUtil {
             Arrays.stream(columnsSQL.replaceAll(" ", "").split(",")).forEach(column -> {
                 FieldInfo fieldInfo2 = new FieldInfo();
                 fieldInfo2.setFieldName(column);
+                fieldInfo2.setJdbcType(column);
                 fieldInfo2.setColumnName(column);
                 fieldInfo2.setFieldClass(String.class.getSimpleName());
                 if (n.get() < valueList.size()) {

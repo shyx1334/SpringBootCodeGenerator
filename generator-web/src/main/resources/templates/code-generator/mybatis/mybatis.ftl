@@ -6,7 +6,7 @@
     <resultMap id="BaseResultMap" type="${packageName}.entity.${classInfo.className}" >
         <#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
             <#list classInfo.fieldList as fieldItem >
-                <result column="${fieldItem.columnName}" property="${fieldItem.fieldName}" />
+                <result column="${fieldItem.columnName}" property="${fieldItem.fieldName}" jdbcType="${fieldItem.jdbcType}" />
             </#list>
         </#if>
     </resultMap>
