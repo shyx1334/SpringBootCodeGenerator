@@ -12,14 +12,14 @@ import java.util.List;
  */
 @Mapper
 @Repository
-public interface ${classInfo.className}Mapper {
+public interface ${classInfo.className}Dao {
 
     /**
     * 新增
     * @author ${authorName}
     * @date ${.now?string('yyyy/MM/dd')}
     **/
-    int insert(${classInfo.className} ${classInfo.className?uncap_first});
+    int insert(${classInfo.className}Po ${classInfo.className?uncap_first});
 
     /**
     * 刪除
@@ -33,21 +33,21 @@ public interface ${classInfo.className}Mapper {
     * @author ${authorName}
     * @date ${.now?string('yyyy/MM/dd')}
     **/
-    int update(${classInfo.className} ${classInfo.className?uncap_first});
+    int update(${classInfo.className}Po ${classInfo.className?uncap_first});
 
     /**
     * 查询 根据主键 id 查询
     * @author ${authorName}
     * @date ${.now?string('yyyy/MM/dd')}
     **/
-    ${classInfo.className} load(int id);
+    ${classInfo.className}Po load(int id);
 
     /**
     * 查询 分页查询
     * @author ${authorName}
     * @date ${.now?string('yyyy/MM/dd')}
     **/
-    List<${classInfo.className}> pageList(int offset,int pagesize);
+    List<${classInfo.className}Po> pageList(int offset,int pagesize);
 
     /**
     * 查询 分页查询 count
