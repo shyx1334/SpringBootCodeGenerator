@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="${packageName}.dao.${classInfo.className}Mapper">
+<mapper namespace="${packageName}.dao.${classInfo.className}Dao">
 
-    <resultMap id="BaseResultMap" type="${packageName}.entity.${classInfo.className}" >
+    <resultMap id="BaseResultMap" type="${packageName}.po.${classInfo.className}Po">
         <#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
             <#list classInfo.fieldList as fieldItem >
-                <result column="${fieldItem.columnName}" property="${fieldItem.fieldName}" jdbcType="${fieldItem.jdbcType}" />
+                <result column="${fieldItem.columnName}" property="${fieldItem.fieldName}" jdbcType="${fieldItem.jdbcType}"/>
             </#list>
         </#if>
     </resultMap>
 
-    <sql id="Base_Column_List">
-        <#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
-            <#list classInfo.fieldList as fieldItem >
-                ${fieldItem.columnName}<#if fieldItem_has_next>,</#if>
-            </#list>
+    <sql id="base_column">
+        <#if classInfo.fieldList?? && classInfo.fieldList?size gt 0>
+        <#list classInfo.fieldList as fieldItem >${fieldItem.columnName}<#if fieldItem_has_next>, </#if></#list>
         </#if>
     </sql>
 
-    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="${packageName}.entity.${classInfo.className}">
+    <sql id="base_where">
+        <where>
+        <#if classInfo.fieldList?? && classInfo.fieldList?size gt 0>
+        <#list classInfo.fieldList as fieldItem >
+        <if test="${fieldItem.fieldName} != null<#if fieldItem.fieldClass ="String"> and '' != ${fieldItem.fieldName}</#if>">
+            and ${fieldItem.columnName} = ${r"#{"}${fieldItem.fieldName}}
+        ${r"</if>"}
+            </#list>
+            </#if>
+        </where>
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="${packageName}.po.${classInfo.className}Po">
         INSERT INTO ${classInfo.originTableName}
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
@@ -56,7 +66,7 @@
         WHERE id = ${r"#{id}"}
     </delete>
 
-    <update id="update" parameterType="${packageName}.entity.${classInfo.className}">
+    <update id="update" parameterType="${packageName}.po.${classInfo.className}Po">
         UPDATE ${classInfo.originTableName}
         <set>
             <#list classInfo.fieldList as fieldItem >

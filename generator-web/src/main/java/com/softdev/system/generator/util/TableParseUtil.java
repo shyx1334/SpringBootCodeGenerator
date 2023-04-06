@@ -248,6 +248,7 @@ public class TableParseUtil {
                     FieldInfo fieldInfo = new FieldInfo();
                     //
                     fieldInfo.setColumnName(columnName);
+                    fieldInfo.setDbType(mysqlType);
                     fieldInfo.setJdbcType(MysqlJavaTypeUtil.getMysqlJdbcTypeMap().getOrDefault(fieldClass,""));
                     fieldInfo.setFieldName(fieldName);
                     fieldInfo.setFieldClass(fieldClass);
