@@ -15,7 +15,7 @@ import java.util.Map;
 public class ${classInfo.className}ServiceImpl implements ${classInfo.className}Service {
 
 	@Resource
-	private ${classInfo.className}Mapper ${classInfo.className?uncap_first}Mapper;
+	private ${classInfo.className}Dao ${classInfo.className?uncap_first}Dao;
 
 
 	@Override

@@ -1,9 +1,10 @@
 <#if isAutoImport?exists && isAutoImport==true>
+
+</#if>
 import org.apache.ibatis.annotations.Param;
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-import java.util.List;
-</#if>
 
 /**
  * @description ${classInfo.classComment}
@@ -18,8 +19,17 @@ public interface ${classInfo.className}Dao {
     * 新增
     * @author ${authorName}
     * @date ${.now?string('yyyy/MM/dd')}
+    * @return 受影响行数
     **/
     int insert(${classInfo.className}Po ${classInfo.className?uncap_first});
+
+    /**
+    * 批量新增
+    * @author ${authorName}
+    * @date ${.now?string('yyyy/MM/dd')}
+    * @return 受影响行数
+    **/
+    int insertBatch(@Param("list") List<${classInfo.className}Po> ${classInfo.className?uncap_first}List);
 
     /**
     * 刪除

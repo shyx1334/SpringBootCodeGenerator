@@ -61,6 +61,31 @@
         </trim>
     </insert>
 
+    <insert id="insertBatch" useGeneratedKeys="true" keyColumn="id" keyProperty="id" parameterType="${packageName}.po.${classInfo.className}Po">
+        INSERT INTO ${classInfo.originTableName}
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <#if classInfo.fieldList?? && classInfo.fieldList?size gt 0>
+            <#list classInfo.fieldList as fieldItem >
+            <#if fieldItem.columnName != "id" >
+                ${fieldItem.columnName}<#if fieldItem_has_next>,</#if>
+                </#if>
+                </#list>
+             </#if>
+        </trim>
+        values
+        <foreach collection="list" item="item" separator=",">
+            <trim prefix=" (" suffix=")" suffixOverrides=",">
+                <#if classInfo.fieldList?? && classInfo.fieldList?size gt 0>
+                <#list classInfo.fieldList as fieldItem >
+                <#if fieldItem.columnName != "id" >
+                ${r"#{"}item.${fieldItem.fieldName}${r"}"}<#if fieldItem_has_next>,</#if>
+                </#if>
+                </#list>
+                </#if>
+            </trim>
+        </foreach>
+    </insert>
+
     <delete id="delete" >
         DELETE FROM ${classInfo.originTableName}
         WHERE id = ${r"#{id}"}
@@ -80,13 +105,13 @@
 
 
     <select id="load" resultMap="BaseResultMap">
-        SELECT <include refid="Base_Column_List" />
+        SELECT <include refid="base_column" />
         FROM ${classInfo.originTableName}
         WHERE id = ${r"#{id}"}
     </select>
 
     <select id="pageList" resultMap="BaseResultMap">
-        SELECT <include refid="Base_Column_List" />
+        SELECT <include refid="base_column" />
         FROM ${classInfo.originTableName}
         LIMIT ${r"#{offset}"}, ${r"#{pageSize}"}
     </select>
