@@ -21,7 +21,7 @@
         <where>
         <#if classInfo.fieldList?? && classInfo.fieldList?size gt 0>
         <#list classInfo.fieldList as fieldItem >
-        <if test="${fieldItem.fieldName} != null<#if fieldItem.fieldClass ="String"> and '' != ${fieldItem.fieldName}</#if>">
+        <if test="${fieldItem.fieldName} != null<#if fieldItem.fieldClass ="String"> and ${fieldItem.fieldName} != ''</#if>">
             and ${fieldItem.columnName} = ${r"#{"}${fieldItem.fieldName}}
         ${r"</if>"}
             </#list>
