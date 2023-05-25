@@ -104,7 +104,7 @@
     </update>
 
 
-    <select id="load" resultMap="BaseResultMap">
+    <select id="getByPrimaryKey" resultMap="BaseResultMap">
         SELECT <include refid="base_column" />
         FROM ${classInfo.originTableName}
         WHERE id = ${r"#{id}"}
@@ -113,12 +113,16 @@
     <select id="pageList" resultMap="BaseResultMap">
         SELECT <include refid="base_column" />
         FROM ${classInfo.originTableName}
-        LIMIT ${r"#{offset}"}, ${r"#{pageSize}"}
+        <include refid="base_where"/>
+        <if test="limit != null and offset != null">
+            LIMIT ${r"#{limit}"}, ${r"#{offset}"}
+        </if>
     </select>
 
-    <select id="pageListCount" resultType="java.lang.Integer">
+    <select id="pageListCnt" resultType="java.lang.Integer">
         SELECT count(1)
         FROM ${classInfo.originTableName}
+        <include refid="base_where"/>
     </select>
 
 </mapper>
