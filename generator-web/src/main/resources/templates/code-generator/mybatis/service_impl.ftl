@@ -74,7 +74,7 @@ public class ${classInfo.className}ServiceImpl implements ${classInfo.className}
 	  * @param param 参数
 	  * @return 结果
 	  */
-	public PageResult<${classInfo.className}Po> pageList(${classInfo.className}Param param) {
+	public PageResult<${classInfo.className}Po> pager(${classInfo.className}Param param) {
 		param.setLimit();
 		int cnt = ${classInfo.className?uncap_first}Dao.pageListCnt(param);
 		if (cnt <= 0) {
