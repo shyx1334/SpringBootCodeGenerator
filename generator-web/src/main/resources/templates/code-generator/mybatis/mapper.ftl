@@ -57,13 +57,13 @@ public interface ${classInfo.className}Dao {
     * @author ${authorName}
     * @date ${.now?string('yyyy/MM/dd')}
     **/
-    List<${classInfo.className}Po> pageList(int offset,int pagesize);
+    List<${classInfo.className}Po> pageList(DefenseBaseParam param);
 
     /**
-    * 查询 分页查询 count
+    * 查询 分页数查询
     * @author ${authorName}
     * @date ${.now?string('yyyy/MM/dd')}
     **/
-    int pageListCount(int offset,int pagesize);
+    int pageListCnt(DefenseBaseParam param);
 
 }
