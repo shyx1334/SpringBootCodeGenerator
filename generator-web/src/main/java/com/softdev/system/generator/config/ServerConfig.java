@@ -18,6 +18,8 @@ import java.net.UnknownHostException;
 @Slf4j
 public class ServerConfig implements ApplicationListener<WebServerInitializedEvent> {
 
+    private static final String BROWSER_PATH = "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe";
+
     @Override
     public void onApplicationEvent(WebServerInitializedEvent event) {
         try {
@@ -30,6 +32,16 @@ public class ServerConfig implements ApplicationListener<WebServerInitializedEve
             String serverPath = event.getApplicationContext().getApplicationName();
             log.info("项目启动成功！访问地址: http://{}:{}{}", hostAddress, serverPort, serverPath);
             log.info("本机地址: http://localhost:{}{}", serverPort, serverPath);
+            String cmd = BROWSER_PATH +" "+ "http://localhost:"+serverPort + serverPath;
+            Runtime run = Runtime.getRuntime();
+            try{
+                run.exec(cmd);
+                log.info("启动浏览器打开项目成功");
+            }catch (Exception e){
+                e.printStackTrace();
+                log.error(e.getMessage());
+            }
+
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
