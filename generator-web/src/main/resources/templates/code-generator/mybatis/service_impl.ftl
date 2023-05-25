@@ -17,52 +17,71 @@ public class ${classInfo.className}ServiceImpl implements ${classInfo.className}
 	@Resource
 	private ${classInfo.className}Dao ${classInfo.className?uncap_first}Dao;
 
-
-	@Override
-	public Object insert(${classInfo.className} ${classInfo.className?uncap_first}) {
-
-		// valid
-		if (${classInfo.className?uncap_first} == null) {
-			return ${returnUtilFailure}("必要参数缺失");
+	/**
+	  *  新增
+	  * @param ${classInfo.className?uncap_first}
+	  * @return
+	  */
+	public int insert(${classInfo.className}Po ${classInfo.className?uncap_first}) {
+		if (Objects.isNull(${classInfo.className?uncap_first})) {
+			return -1;
         }
-
-		${classInfo.className?uncap_first}Mapper.insert(${classInfo.className?uncap_first});
-        return ${returnUtilSuccess}();
+		return ${classInfo.className?uncap_first}Dao.insert(${classInfo.className?uncap_first});
 	}
 
 
-	@Override
-	public Object delete(int id) {
-		int ret = ${classInfo.className?uncap_first}Mapper.delete(id);
-		return ret>0?${returnUtilSuccess}():${returnUtilFailure}();
+	/**
+	  *  删除
+	  * @param id
+	  * @return
+	  */
+	public int delete(Long id) {
+		if (Objects.isNull(id) {
+			return -1;
+		}
+		return ${classInfo.className?uncap_first}Dao.delete(${classInfo.className?uncap_first});
 	}
 
 
-	@Override
-	public Object update(${classInfo.className} ${classInfo.className?uncap_first}) {
-		int ret = ${classInfo.className?uncap_first}Mapper.update(${classInfo.className?uncap_first});
-		return ret>0?${returnUtilSuccess}():${returnUtilFailure}();
+	/**
+	  *  根据主键更新
+	  * @param resourceChange
+	  * @return
+	  */
+	public int update(${classInfo.className}Po ${classInfo.className?uncap_first}) {
+		if (Objects.isNull(${classInfo.className?uncap_first})) {
+			return -1;
+		}
+		return ${classInfo.className?uncap_first}Dao.update(${classInfo.className?uncap_first});
 	}
 
 
-	@Override
-	public ${classInfo.className} load(int id) {
-		return ${classInfo.className?uncap_first}Mapper.load(id);
+	/**
+	  *  根据主键查询
+	  * @param resourceChange
+	  * @return
+	  */
+	public ${classInfo.className}Po getOne(Long id) {
+		if (Objects.isNull(id) {
+		return -1;
+		}
+		return ${classInfo.className?uncap_first}Dao.getByPrimaryKey(id);
 	}
 
 
-	@Override
-	public Map<String,Object> pageList(int offset, int pagesize) {
-
-		List<${classInfo.className}> pageList = ${classInfo.className?uncap_first}Mapper.pageList(offset, pagesize);
-		int totalCount = ${classInfo.className?uncap_first}Mapper.pageListCount(offset, pagesize);
-
-		// result
-		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("pageList", pageList);
-		result.put("totalCount", totalCount);
-
-		return result;
+	/**
+	  *  分页查询
+	  * @param param 参数
+	  * @return 结果
+	  */
+	public PageResult<${classInfo.className}Po> pageList(${classInfo.className}Param param) {
+		param.setLimit();
+		int cnt = ${classInfo.className?uncap_first}Dao.pageListCnt(param);
+		if (cnt <= 0) {
+			return new PageResult<>(new Pager(cnt, param.getPageNum(), param.getPageSize()));
+		}
+		List<${classInfo.className}Po> pageList = ${classInfo.className?uncap_first}Dao.pageList(param);
+		return new PageResult<>(pageList, new Pager(cnt, param.getPageNum(), param.getPageSize()));
 	}
 
 }
