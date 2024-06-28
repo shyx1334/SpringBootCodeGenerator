@@ -1,5 +1,6 @@
 package com.softdev.system.generator.util;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import java.util.Map;
  */
 public final class MysqlJavaTypeUtil {
     public static final  HashMap<String, String> mysqlJavaTypeMap = new HashMap<>();
+    public static final  HashMap<String, String> javaMysqlTypeMap = new HashMap<>();
     public static final  HashMap<String, String> mysqlJdbcTypeMap = new HashMap<>();
     public static final  HashMap<String, String> mysqlSwaggerTypeMap = new HashMap<>();
 
@@ -35,6 +37,25 @@ public final class MysqlJavaTypeUtil {
         mysqlJavaTypeMap.put("date","Date");
         mysqlJavaTypeMap.put("datetime","Date");
         mysqlJavaTypeMap.put("timestamp","Date");
+
+
+        javaMysqlTypeMap.put("Integer", "int");
+        javaMysqlTypeMap.put("int", "int");
+        javaMysqlTypeMap.put("Long", "bigint");
+        javaMysqlTypeMap.put("long", "bigint");
+        javaMysqlTypeMap.put("Double", "double");
+        javaMysqlTypeMap.put("double", "double");
+        javaMysqlTypeMap.put("Float", "float");
+        javaMysqlTypeMap.put("float", "float");
+        javaMysqlTypeMap.put("BigDecimal", "decimal");
+        javaMysqlTypeMap.put("String", "varchar");
+        javaMysqlTypeMap.put("Date", "datetime");
+        javaMysqlTypeMap.put("LocalDateTime", "datetime");
+        javaMysqlTypeMap.put("LocalDate", "date");
+        javaMysqlTypeMap.put("Boolean","bit");
+        javaMysqlTypeMap.put("boolean","bit");
+
+
 
 
         mysqlJdbcTypeMap.put("Integer","INTEGER");
@@ -69,5 +90,8 @@ public final class MysqlJavaTypeUtil {
 
     public static HashMap<String, String> getMysqlSwaggerTypeMap() {
         return mysqlSwaggerTypeMap;
+    }
+    public static HashMap<String, String> getMysqlTypeByJavaType(){
+        return javaMysqlTypeMap;
     }
 }
